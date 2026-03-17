@@ -1,0 +1,564 @@
+{
+  "datasets": [
+    {
+      "name": "7d19cc87",
+      "displayName": "Crop Report Summary",
+      "queryLines": [
+        "SELECT\n",
+        "  *\n",
+        "FROM\n",
+        "  crop_report_agg"
+      ],
+      "catalog": "dbx_demo",
+      "schema": "gold_agg"
+    }
+  ],
+  "pages": [
+    {
+      "name": "38c1b053",
+      "displayName": "Crop Overview",
+      "layout": [
+        {
+          "widget": {
+            "name": "bar_state_production",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7d19cc87",
+                  "fields": [
+                    {
+                      "name": "Crop",
+                      "expression": "`Crop`"
+                    },
+                    {
+                      "name": "State_Name",
+                      "expression": "`State_Name`"
+                    },
+                    {
+                      "name": "sum(Total_Production)",
+                      "expression": "SUM(`Total_Production`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Production by State & Crop",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "stack"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "State_Name",
+                  "displayName": "State",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Total_Production)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Production (tons)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Crop",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Crop",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 12,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_crop_area",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7d19cc87",
+                  "fields": [
+                    {
+                      "name": "State_Name",
+                      "expression": "`State_Name`"
+                    },
+                    {
+                      "name": "Crop",
+                      "expression": "`Crop`"
+                    },
+                    {
+                      "name": "sum(Total_Area)",
+                      "expression": "SUM(`Total_Area`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Area by Crop & State",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "stack"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Crop",
+                  "displayName": "Crop",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Total_Area)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Area (hectares)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "State_Name",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "State",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "line_avg_production_year",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7d19cc87",
+                  "fields": [
+                    {
+                      "name": "Crop_Year",
+                      "expression": "`Crop_Year`"
+                    },
+                    {
+                      "name": "avg(Avg_Production)",
+                      "expression": "AVG(`Avg_Production`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Average Production Trend",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "Crop_Year",
+                  "displayName": "Year",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(Avg_Production)",
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 2
+                    },
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Avg Production (tons)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 12,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "table_crop_details",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7d19cc87",
+                  "fields": [
+                    {
+                      "name": "State_Name",
+                      "expression": "`State_Name`"
+                    },
+                    {
+                      "name": "District_Name",
+                      "expression": "`District_Name`"
+                    },
+                    {
+                      "name": "Crop_Year",
+                      "expression": "`Crop_Year`"
+                    },
+                    {
+                      "name": "Season",
+                      "expression": "`Season`"
+                    },
+                    {
+                      "name": "Crop",
+                      "expression": "`Crop`"
+                    },
+                    {
+                      "name": "Total_Area",
+                      "expression": "`Total_Area`"
+                    },
+                    {
+                      "name": "Total_Production",
+                      "expression": "`Total_Production`"
+                    },
+                    {
+                      "name": "Avg_Production",
+                      "expression": "`Avg_Production`"
+                    },
+                    {
+                      "name": "Avg_Area",
+                      "expression": "`Avg_Area`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Detailed Crop Data Table",
+                "showTitle": true
+              },
+              "rowsPerPage": 25,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "State_Name",
+                    "displayName": "State"
+                  },
+                  {
+                    "fieldName": "District_Name",
+                    "displayName": "District"
+                  },
+                  {
+                    "fieldName": "Crop_Year",
+                    "displayName": "Year"
+                  },
+                  {
+                    "fieldName": "Season",
+                    "displayName": "Season"
+                  },
+                  {
+                    "fieldName": "Crop",
+                    "displayName": "Crop"
+                  },
+                  {
+                    "fieldName": "Total_Area",
+                    "displayName": "Total Area (hectares)"
+                  },
+                  {
+                    "fieldName": "Total_Production",
+                    "displayName": "Total Production (tons)"
+                  },
+                  {
+                    "fieldName": "Avg_Production",
+                    "displayName": "Avg Production (tons)"
+                  },
+                  {
+                    "fieldName": "Avg_Area",
+                    "displayName": "Avg Area (hectares)"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 12,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "crop_area_pie",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7d19cc87",
+                  "fields": [
+                    {
+                      "name": "sum(Total_Area)",
+                      "expression": "SUM(`Total_Area`)"
+                    },
+                    {
+                      "name": "Crop",
+                      "expression": "`Crop`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Crop Area Share Pie",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(Total_Area)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Area (hectares)"
+                },
+                "color": {
+                  "fieldName": "Crop",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Crop",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 12,
+            "height": 3
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "global_filters",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "filter_state",
+            "queries": [
+              {
+                "name": "dashboards/01f122381e831dfab27712ab292cab26/datasets/01f1223892361a9490adabd9315c939f_State_Name",
+                "query": {
+                  "datasetName": "7d19cc87",
+                  "fields": [
+                    {
+                      "name": "State_Name",
+                      "expression": "`State_Name`"
+                    },
+                    {
+                      "name": "State_Name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "State Filter",
+                "showTitle": true
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "State_Name",
+                    "queryName": "dashboards/01f122381e831dfab27712ab292cab26/datasets/01f1223892361a9490adabd9315c939f_State_Name"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_year",
+            "queries": [
+              {
+                "name": "dashboards/01f122381e831dfab27712ab292cab26/datasets/01f1223892361a9490adabd9315c939f_Crop_Year",
+                "query": {
+                  "datasetName": "7d19cc87",
+                  "fields": [
+                    {
+                      "name": "Crop_Year",
+                      "expression": "`Crop_Year`"
+                    },
+                    {
+                      "name": "Crop_Year_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Year Filter",
+                "showTitle": true
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "Crop_Year",
+                    "queryName": "dashboards/01f122381e831dfab27712ab292cab26/datasets/01f1223892361a9490adabd9315c939f_Crop_Year"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_crop",
+            "queries": [
+              {
+                "name": "dashboards/01f122381e831dfab27712ab292cab26/datasets/01f1223892361a9490adabd9315c939f_Crop",
+                "query": {
+                  "datasetName": "7d19cc87",
+                  "fields": [
+                    {
+                      "name": "Crop",
+                      "expression": "`Crop`"
+                    },
+                    {
+                      "name": "Crop_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Crop Filter",
+                "showTitle": true
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "Crop",
+                    "queryName": "dashboards/01f122381e831dfab27712ab292cab26/datasets/01f1223892361a9490adabd9315c939f_Crop"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
